@@ -16,9 +16,8 @@ var app = express();
 //配置生产环境和开发环境目录
 var pubPath = app.get("env")==="development"?"dist":"bin";
 
-app.use(express.static(path.join(__dirname, pubPath)));
 //配置静态资源目录
-app.use(express.static(path.join(__dirname, pubPath+'/static'),{
+app.use(express.static(path.join(__dirname, pubPath),{
     lastModified:true,
     maxAge:60000*3600*24*30,
 }));
