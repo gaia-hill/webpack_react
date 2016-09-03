@@ -5,12 +5,20 @@ var pages=[
   	new HtmlWebpackPlugin({
   		title:'index page',
   		// hash:true,
-  		chunks:['react','index'],
+  		chunks:['common','index'],
   		filename:'../views/index.html',
   		template:'src/tpls/tpl.html',
   		inject:'body'
   	}),
   	//在后面添加你的页面
+  	new HtmlWebpackPlugin({
+  		title:'test page',
+  		// hash:true,
+  		chunks:['common','test'],
+  		filename:'../views/test.html',
+  		template:'src/tpls/tpl.html',
+  		inject:'body'
+  	}),
 ];
 
 module.exports=pages;

@@ -60,26 +60,21 @@ var config={
 		]
 	},
 	plugins: [
-
+		//别名
 		new webpack.ProvidePlugin({
 			React:'react',
 			ReactDOM:'react-dom'
 		}),
 		//提取相同js文件中相同的部分
       	new webpack.optimize.CommonsChunkPlugin({
-      		name:"react",
+      		name:"common",
       		filename:"js/[name].bundle.js",
-      		chunks:['react','index'],
-      		// minChunks: 3,
+      		chunks:['react','index','test']
       	}),
-      	// new webpack.optimize.CommonsChunkPlugin({
-      	// 	name:"common",
-      	// 	filename:"js/[name].bundle.js",
-      	// 	chunks:['index'],
-      	// }),
 
       	//将css单独倒出到文件
       	new ExtractTextPlugin('css/[name].css',{
+      		chunks:['common'],
       		allChunks:true,
       	}),
     ]

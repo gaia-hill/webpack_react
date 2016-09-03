@@ -10,16 +10,14 @@ npm install webpack@1.13.1 -g
 
 
 ##项目结构介绍
-* bin为线上版本输出目录（代码进行了压缩，静态资源添加了版本号）
 * dist是本地版本输出目录
 * src是源文件目录
 * router是node服务器的路由配置文件
 * tpls为html模板文件目录
 * views为生成html的配置文件目录
-* app.js为node服务器的配置文件
+* server.js为node服务器的配置文件
 * gulpfile.js是gulp的配置文件
-* webpack.config.dev.js是webpack线下版本构建配置文件
-* webpack.config.pro.js是webpack线上版本构建配置文件
+* webpack.config.js是webpack配置文件
 * package.json为项目信息的配置文件，包括脚本命令、项目信息、依赖模块（可通过 npm install 安装依赖的模块）
 
 
@@ -39,26 +37,9 @@ npm run pro    //生产环境
 
 开发环境访问目录为dist,生产环境目录为bin
 
-
-服务器缓存策略为缓存所有的静态资源（max-age），html采取协商缓存（etag，last-modify），这样的话，如果html引用的资源链接没有改动的话，客户端总会在缓存中获取资源，从而减少了客户端请求服务器的次数
-
-那如果我们改变了服务器端的资源，怎样去更新客户端的资源呢，在html引用的资源中，如果资源发生改变，我们在构建线上版本的时候，webpack会根据文件内容去生成资源的hash来命名并引用文件，从而资源的路径发生改变，而在请求html时，会发现html发生了改变，从而返回200，客户端会发现html引用了新资源，并去请求，通过这种形式就完成了客户端资源的更新
-
 webpack有一个webpack-dev-server，里面没有使用，如果想用的话，可以去webpack的官方文档看一下怎样用
 
-
-##gulp和webpack分工
-gulp主要是辅助webpack，用于清理输出目录，执行webpack
-
-webpack做的工作主要有：
-* 编译less，jsx，es6
-* 模块加载，包括图片、样式、js、字体等
-* 打包合并
-* 版本管理（感觉用webpack做版本管理没有gulp好用，之前一直在用gulp）
-
-##webpack有啥好用的
-* 模块开发：webpack支持主流的模块化标准（AMD、CMD、commonjs、es6加载器），它的思想是万物皆模块，不管是image、css、font、js等，都可以当做模块来加载，需要什么样的处理方式，只要在loader中配置就可以（或者在加载模块时说明），很适合与react进行开发，因为react就是组件式开发，并且es6写react很方便
+##webpack
+* 模块化：webpack支持主流的模块化标准（AMD、CMD、commonjs、es6加载器），它的思想是万物皆模块，不管是image、css、font、js等，都可以当做模块来加载，需要什么样的处理方式，只要在loader中配置就可以（或者在加载模块时说明），很适合与react进行开发，因为react就是组件式开发，并且es6写react很方便
 * 项目打包：webpack的核心功能，在没有使用webpack前，项目使用的是gulp对文件进行合并压缩等等去生成线上版本，在打包这一块，gulp需要配置一条长长的生产线来完成整个过程，webpack只需配置打包的入口和出口就基本上能够完成工作了
 
-##后记
-项目是在看webpack时，边学习边一点点配置的，项目中有很多不完善的地方，也有很多没考虑到的东西，大家共同学习

@@ -5,32 +5,15 @@ var path = require('path');
 var http = require("http");
 
 //添加路由
-var routes = require('./routes/index');
+var routes = require('./routes/router');
 
 var app = express();
-
-//初始化模版引擎
-// app.set('views', path.join(__dirname, 'tpls'));
-// app.set('view engine', 'jade');
 
 //配置生产环境和开发环境目录
 var pubPath = app.get("env")==="development"?"dist":"bin";
 
 //配置静态资源目录
-app.use(express.static(path.join(__dirname, pubPath),{
-    lastModified:true,
-    maxAge:60000*3600*24*30,
-}));
-//配置页面目录
-app.use(express.static(path.join(__dirname, pubPath+'/views'),{
-    dotfiles:"ignore",
-    etag:true,
-    extension:["html","htm"],
-    index:"index.html",
-    lastModified:true,
-    maxAge:0,
-    redirect:true,
-}));
+app.use(express.static(path.join(__dirname, pubPath)));
 
 //配置路由
 app.use('/', routes);
